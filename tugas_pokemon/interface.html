@@ -19,13 +19,10 @@
         $(document).ready(function(){
             $('#getBtn').on('click', getPosts);
             function getPosts() {
-                // kita gunakan fetch dalam kita ambil data sample.txt yang sudah kita buat
+                
                 fetch(`https://pokeapi.co/api/v2/pokemon?limit=30`)
-                // kita buat response menjadi json
                 .then((response) => response.json())
-                // lalu data nya kita ambil dan kita masuken ke p id output
                 .then((data1) => {
-                    // kita console.log agar mengetahui apakah data nya sudah masuk atau belum
                     console.log(data1);
                     var data2 = data1.results;
                     data2.forEach((data3)=>{
