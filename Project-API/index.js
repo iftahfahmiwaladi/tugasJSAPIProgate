@@ -1,4 +1,4 @@
-function initMap() {
+function initialize() {
   const myLatlng = { lat: -8.184486, lng: 113.668076 };
 
   const map = new google.maps.Map(document.getElementById("map"), {
