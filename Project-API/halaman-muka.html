@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <title>Document</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+    <script type="module" src="index.js"></script>
+    <style>
+        #map{
+            height: 400px;width: 100%;
+        }
+        .logo img{
+                width: 50px;
+                height: 50px;
+                object-fit: cover;
+                border-radius: 50%;
+                margin: auto;
+        }
+        
+    </style>
+</head>
+<body>
+    <section class="bg-light">
+        <div class="container pb-5">
+            <h2><span class="logo"><img src="logo1.png" alt=""></span>Turbin-In.</h2>
+            <p>Memperkirakan potensi angin di daerahmu untuk pembangkitan yang listrik optimal.</p>
+            <div id="map"></div>
+        </div>
+    </section>
+    <section>    
+        <div class="container">            
+            <p>Latitude</p>
+            <input type="text" name="" id="latitude">   
+            <p>Longitude</p>
+            <input type="text" name="" id="longitude">
+            <button id="getPosts" class="btn btn-success">Perkirakan</button>
+            <div>
+                <p>Asumsi : </p>
+                <p>Desain Sudu Turbin = 53 m</p>
+                <p>Nilai Massa Jenis Udara = 1.2 Kg/cm3</p>
+                <p>Koeffisien Power = 0.4</p>
+            </div>
+            <div id="hasil_perkiraan">
+                <p id="lokasi">Lokasi = -</p>
+                <p id="tanggal">Tanggal = -</p>
+                <p id="temperature">Temperature = -</p>
+                <p id="kecepatan_angin">Kecepatan Angin = -</p>
+                <p id="daya_dihasilkan">Daya yang dihasilkan = -</p>
+            </div>
+        </div>
+    </section>
+    <script
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBl1eGbG87HrfIWjMTDG8V2l3npj4SnxrE&callback=initMap&v=weekly"defer></script>
+    <script>
+		document.getElementById('getPosts').addEventListener('click', getPosts);
+        function getPosts() {
+            var latitude = document.getElementById('latitude').value;
+            var longitude = document.getElementById('longitude').value;
+            fetch(`http://api.weatherapi.com/v1/forecast.json?key=6dbc93eca2804a0da5f90816221706&q=${latitude},${longitude}&days=1&aqi=yes&alerts=no`)
+            .then((response) => response.json())
+            .then((data) => {
+                var data1 = data.forecast.forecastday;
+                data1.forEach((post)=>{
+                    var lokasi = `Lokasi = ${data.location.name},${data.location.region},${data.location.country}`;
+                    var tanggal = `Tanggal : ${post.date}`;
+                    var temperature = `Temperature : ${post.day.avgtemp_c} celsius`;
+                    var angin = `Kecepatan Angin : ${(post.day.maxwind_kph*0.27778).toFixed(2)} m/s`;
+                    var perkiraan_daya = (Math.pow((post.day.maxwind_kph*0.27778),3)*1/2*9144*1.2*0.4)/1000;
+                    var perkiraan_daya1 = `Daya yang dihasilkan : ${perkiraan_daya.toFixed(2)} kilowatt`;
+                    document.getElementById('lokasi').innerHTML=lokasi;
+                    document.getElementById('tanggal').innerHTML=tanggal;
+                    document.getElementById('temperature').innerHTML=temperature;
+                    document.getElementById('kecepatan_angin').innerHTML=angin;
+                    document.getElementById('daya_dihasilkan').innerHTML=perkiraan_daya1;
+                })               
+            })
+            .catch((err) => console.log(err));
+        }
+    </script>
+    
+</body>
+</html>
