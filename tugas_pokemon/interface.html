@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="stylesheet.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+</head>
+<body> 
+    <h3>Get Pikachu</h3>
+    <button id="getBtn">Get!</button>
+    <div id="container">
+        <div id="box">
+        </div>
+    </div>
+    <script>
+        $(document).ready(function(){
+            $('#getBtn').on('click', getPosts);
+            function getPosts() {
+                // kita gunakan fetch dalam kita ambil data sample.txt yang sudah kita buat
+                fetch(`https://pokeapi.co/api/v2/pokemon?limit=30`)
+                // kita buat response menjadi json
+                .then((response) => response.json())
+                // lalu data nya kita ambil dan kita masuken ke p id output
+                .then((data1) => {
+                    // kita console.log agar mengetahui apakah data nya sudah masuk atau belum
+                    console.log(data1);
+                    var data2 = data1.results;
+                    data2.forEach((data3)=>{
+                        fetch(data3.url).then((response1) => response1.json()).then((data2)=>{
+                            var nama= data2.name;
+                            var id = data2.id;
+                            var gambar = data2.sprites.front_shiny;
+                            var type = data2.types[0].type.name;
+                                if(type=='electric'){
+                                var $output1 = $(`<div class='kartu electric' id='electric'>
+                                        <span>no : ${id}</span>
+                                        <span>nama : ${nama}</span>
+                                        <div><img src=${gambar}> </div>
+                                        <span>type : ${type}</span>
+                                        </div>
+                                        `);
+                                }else if(type=='grass'){
+                                    var $output2 = $(`<div class='kartu grass' id='grass'>
+                                            <span>no : ${id}</span>
+                                            <span>nama : ${nama}</span>
+                                            <div><img src=${gambar}> </div>
+                                            <span>type : ${type}</span>
+                                            </div>
+                                            `);
+                                }else if(type=='poison'){
+                                    var $output3 = $(`<div class='kartu poison' id='poison'>
+                                            <span>no : ${id}</span>
+                                            <span>nama : ${nama}</span>
+                                            <div><img src=${gambar}> </div>
+                                            <span>type : ${type}</span>
+                                            </div>
+                                            `);
+                                }else if (type=='fire'){
+                                    var $output4 = $(`<div class='kartu fire' id='fire'>
+                                            <span>no : ${id}</span>
+                                            <span>nama : ${nama}</span>
+                                            <div><img src=${gambar}> </div>
+                                            <span>type : ${type}</span>
+                                            </div>
+                                            `);
+                                }else if(type=='bug'){
+                                    var $output5 = $(`<div class='kartu bug' id='bug'>
+                                            <span>no : ${id}</span>
+                                            <span>nama : ${nama}</span>
+                                            <div><img src=${gambar}> </div>
+                                            <span>type : ${type}</span>
+                                            </div>
+                                            `);
+                                }else if(type=='water'){
+                                    var $output6 = $(`<div class='kartu water' id='water'>
+                                            <span>no : ${id}</span>
+                                            <span>nama : ${nama}</span>
+                                            <div><img src=${gambar}> </div>
+                                            <span>type : ${type}</span>
+                                            </div>
+                                            `);
+                                }else if(type=='ground'){
+                                    var $output7 = $(`<div class='kartu ground' id='ground'>
+                                            <span>no : ${id}</span>
+                                            <span>nama : ${nama}</span>
+                                            <div><img src=${gambar}> </div>
+                                            <span>type : ${type}</span>
+                                            </div>
+                                            `);
+                                }else if(type=='normal'){
+                                    var $output8 = $(`<div class='kartu normal' id='normal'>
+                                            <span>no : ${id}</span>
+                                            <span>nama : ${nama}</span>
+                                            <div><img src=${gambar}> </div>
+                                            <span>type : ${type}</span>
+                                            </div>
+                                            `)
+                                }
+                            $('#box').append($output1);$('#box').append($output2);$('#box').append($output3); $('#box').append($output4); $('#box').append($output5);$('#box').append($output6); $('#box').append($output7); $('#box').append($output8);    
+                            var electric=document.querySelectorAll('.electric');
+                            var normal=document.querySelectorAll('.normal');
+                            var grass=document.querySelectorAll('.grass');
+                            var poison=document.querySelectorAll('.poison');
+                            var fire=document.querySelectorAll('.fire');
+                            var bug=document.querySelectorAll('.bug');
+                            var water=document.querySelectorAll('.water');
+                            var ground=document.querySelectorAll('.ground');
+                            for(i=0;i<electric.length;i++){
+                                electric[i].style.background = '#FFFF00';
+                                electric[i].style.display='inline-block';
+                            }for(i=0;i<normal.length;i++){
+                                normal[i].style.background = '#D2B48C';
+                                normal[i].style.display='inline-block';
+                            }for(i=0;i<grass.length;i++){
+                                grass[i].style.background = '#006400';
+                                grass[i].style.display='inline-block';
+                            }for(i=0;i<poison.length;i++){
+                                poison[i].style.background = '#2F4F4F';
+                                poison[i].style.display='inline-block';
+                            }for(i=0;i<fire.length;i++){
+                                fire[i].style.background = '#FF8C00';
+                                fire[i].style.display='inline-block';
+                            }for(i=0;i<bug.length;i++){
+                                bug[i].style.background = '#800000';
+                                bug[i].style.display='inline-block';
+                            }for(i=0;i<water.length;i++){
+                                water[i].style.background = '#B0E0E6';
+                                water[i].style.display='inline-block';
+                            }for(i=0;i<ground.length;i++){
+                                ground[i].style.background = '#8B4513';
+                                ground[i].style.display='inline-block';
+                            }
+                                    
+                        })           
+                    
+                    })
+
+                })
+                // membuat catch jadi kalau ada yang error langsung ketawan
+                .catch((err) => console.log(err));
+            }
+        })
+       
+    </script>
+</body>
+</html>

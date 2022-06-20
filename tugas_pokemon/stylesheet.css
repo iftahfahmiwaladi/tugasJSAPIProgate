@@ -1,0 +1,11 @@
+#box{
+    float:left ;
+    padding: 18px 50px;
+}
+span{
+    padding: 18px 20px;
+}
+.kartu{
+    text-align: center;
+    margin: 18px 20px;
+}
