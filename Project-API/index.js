@@ -32,6 +32,6 @@ function initialize() {
   });
 }
 
-window.initMap = initialize;
+window.initialize = initialize;
 export {};
 
