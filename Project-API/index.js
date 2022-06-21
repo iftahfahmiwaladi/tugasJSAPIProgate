@@ -29,7 +29,7 @@ function initMap() {
     var lat = JSON.parse(infoWindow.content).lat;
     var lng = JSON.parse(infoWindow.content).lng;
     console.log(lat);console.log(lng);
-    fetch(`http://api.weatherapi.com/v1/forecast.json?key=6dbc93eca2804a0da5f90816221706&q=${lat},${lng}&days=1&aqi=yes&alerts=no`)
+    fetch(`https://api.weatherapi.com/v1/forecast.json?key=6dbc93eca2804a0da5f90816221706&q=${lat},${lng}&days=1&aqi=no&alerts=no`)
     .then((response) => response.json())
     .then((data) => {
         var data1 = data.forecast.forecastday;
